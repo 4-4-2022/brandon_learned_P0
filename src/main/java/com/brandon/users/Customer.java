@@ -2,7 +2,7 @@ package com.brandon.users;
 
 public class Customer extends User {
 
-	private short funds = 0;
+	private double bottleCaps = 0;
 	
 	/*
 	 * This is an overload of our constructor that uses the class's fields.
@@ -32,18 +32,18 @@ public class Customer extends User {
 		
 	}
 
-	public short getFunds() {
-		return funds;
+	public double getBottleCaps() {
+		return bottleCaps;
 	}
 
-	public void setFunds(short funds) {
-		this.funds = funds;
+	public void setBottleCaps(double d) {
+		this.bottleCaps = d;
 	}
 
 	@Override
 	public String toString() {
 		return "Name: " + firstName + " " + lastName + "\nUsername: " + userName + "\nPassword: "
-				+ password + "\nFunds: " + funds;
+				+ password + "\nBottle Caps: " + bottleCaps;
 	}
 		
 

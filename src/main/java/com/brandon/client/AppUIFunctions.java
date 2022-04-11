@@ -3,6 +3,9 @@ package com.brandon.client;
 import java.util.Scanner;
 import java.util.Set;
 
+import com.brandon.CustomerLoggedInScreen;
+import com.brandon.CustomerScreen;
+import com.brandon.EmployeeScreen;
 import com.brandon.repositories.CustomerRepository;
 import com.brandon.repositories.CustomerRepositoryImpl;
 import com.brandon.users.Customer;
@@ -65,19 +68,78 @@ public class AppUIFunctions {
 		System.out.println("Enter Password: ");
 	}
 	
-	public static void createNewCustomer() {
+	public static String inputFirstName() {
 		Scanner input = new Scanner(System.in);
 		System.out.println("Please input your first name: ");
-		String firstName = input.nextLine();
-		System.out.println("Please input your last name: ");
-		String lastName = input.nextLine();
-		System.out.println("Please input a username: ");
-		String userName = input.next();
-		System.out.println("Please input a password: ");
-		String password = input.next();
-		CustomerRepositoryImpl.addCustomer(firstName, lastName, userName, password);
-		System.out.println("Account Successfully Created! \n ");
+		String firstNameInput = input.nextLine();
+		firstNameInput = firstNameInput.replaceAll("[^a-zA-Z]", "");
+		String firstName = firstNameInput.substring(0, 1).toUpperCase() + firstNameInput.substring(1);
+		return firstName;
 	}
+	
+	public static String inputLastName() {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please input your last name: ");
+		String lastNameInput = input.nextLine();
+		lastNameInput = lastNameInput.replaceAll("[^a-zA-Z0-9]", "");
+		String lastName = lastNameInput.substring(0, 1).toUpperCase() + lastNameInput.substring(1);
+		return lastName;
+	}
+	
+	public static String inputUserName() {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please input a username: ");
+		String userNameInput = input.nextLine();
+		String userName = userNameInput.replaceAll("[^a-zA-Z0-9]", "");	
+		return userName;
+	}
+	
+	public static String inputPassword() {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please input a password: ");
+		String passwordInput = input.nextLine();
+		String password = passwordInput.replaceAll(" ", "");
+		return password;
+	}
+	
+	public static void createNewCustomer() {
+		boolean isRunning = true;
+		while(isRunning) {
+			Scanner input = new Scanner(System.in);
+			boolean isValid = false;
+			while (isValid == false) {
+				String firstName = inputFirstName();
+				String lastName = inputLastName();		
+				String userName = inputUserName();			
+				String password = inputPassword();
+				if (customerRepository.findCustomerByUserName(userName) != null) {
+					System.out.println("That Username is already taken.");
+					} else {
+						isValid = true;
+						System.out.println("First Name: " + firstName + "\nLast Name: " + 
+								lastName + "\nUsername: " + userName + "\nPassword: " + 
+								password + "\nIs this information correct?\n 1: Yes   2: No \n");
+						
+						int response = input.nextInt();
+						switch(response) {
+						case 1: 
+							CustomerRepositoryImpl.addCustomer(firstName, lastName, userName, password);
+							System.out.println("User " + userName + " Successfully Created! \n ");
+							isRunning = false;
+							break;
+						case 2: 
+							System.out.println("Account not created");
+							break;
+						default:
+							AppUIFunctions.invalidInput();
+					
+						}	
+					}
+
+			}
+		}
+	}
+	
 	
 	public static Customer customerLogin() {
 		Scanner input = new Scanner(System.in);
@@ -91,6 +153,7 @@ public class AppUIFunctions {
 		} else {
 			if (passwordInput.equals(retrievedCustomer.getPassword())) {
 				System.out.println("Successful login!");
+				CustomerLoggedInScreen.main(retrievedCustomer);
 			} else {
 				System.out.println("Password is incorrect.");
 			}

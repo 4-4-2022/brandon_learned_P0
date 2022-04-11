@@ -18,8 +18,7 @@ public class CustomerScreen {
 			
 			switch(userSelection) {
 			case 1: 
-				Customer customerAccount = AppUIFunctions.customerLogin();
-				CustomerLoggedInScreen.main(customerAccount);
+				AppUIFunctions.customerLogin();
 				break;
 			case 2: 
 				AppUIFunctions.createNewCustomer();
