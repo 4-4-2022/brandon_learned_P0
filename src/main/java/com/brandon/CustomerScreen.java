@@ -22,7 +22,6 @@ public class CustomerScreen {
 			case 2: 
 				AppUIFunctions.createNewCustomer();
 				break;
-
 			case 3:
 				isRunning = false;
 				AppUIFunctions.backspace();

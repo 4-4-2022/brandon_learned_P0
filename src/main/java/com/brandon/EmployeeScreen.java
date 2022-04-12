@@ -12,17 +12,18 @@ public class EmployeeScreen {
 		boolean isRunning = true;
 		while(isRunning) {
 			AppUIFunctions.employeeScreenOptions();			
-			int userSelection = AppUIFunctions.handleUserSelection(input);
+			int userSelection = AppUIFunctions.handleUserSelection(input);			
 
 			switch(userSelection) {
 			case 1: 
-				System.out.println("Not implemented yet.");
+				AppUIFunctions.employeeLogin();
 				break;	
 			case 2: 
 				System.out.println("Not implemented yet");
 				break;
 			case 3:
 				AppUIFunctions.viewCustomers();
+				
 				break;
 			case 4:
 				isRunning = false;

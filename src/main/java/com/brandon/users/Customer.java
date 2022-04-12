@@ -3,6 +3,8 @@ package com.brandon.users;
 public class Customer extends User {
 
 	private double bottleCaps = 0;
+	String secondaryAccount = null;
+	boolean isSecondaryAccount = false;
 	
 	/*
 	 * This is an overload of our constructor that uses the class's fields.
@@ -15,9 +17,26 @@ public class Customer extends User {
 		this.password = password;
 	}
 	
-		
+	public String getSecondaryAccount() {
+		return secondaryAccount;
+	}
 
-	
+
+	public void setSecondaryAccount(String secondaryAccount) {
+		this.secondaryAccount = secondaryAccount;
+	}
+
+
+	public boolean isSecondaryAccount() {
+		return isSecondaryAccount;
+	}
+
+
+	public void setSecondaryAccount(boolean isSecondaryAccount) {
+		this.isSecondaryAccount = isSecondaryAccount;
+	}
+
+
 	public double getBottleCaps() {
 		return bottleCaps;
 	}
@@ -29,7 +48,8 @@ public class Customer extends User {
 	@Override
 	public String toString() {
 		return "Name: " + firstName + " " + lastName + "\nUsername: " + userName + "\nPassword: "
-				+ password + "\nBottle Caps: " + bottleCaps;
+				+ password + "\nBottle Caps: " + bottleCaps + "\nSecondary Account: " + secondaryAccount
+				+ "\nSecondary Account Status: " + isSecondaryAccount + "\n " ;
 	}
 		
 

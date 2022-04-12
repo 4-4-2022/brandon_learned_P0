@@ -1,23 +1,18 @@
 package com.brandon.repositories;
 
-import java.util.HashSet;
+import java.util.HashSet; 
 import java.util.Set;
 
 import com.brandon.users.Customer;
 
 public class CustomerRepositoryImpl implements CustomerRepository{
 	
-	//	private static Customer[] customers = {
-	//	new Customer("Brandon", "Learned", "blearned92", "pw"), 
-	//	new Customer("Alexa", "Learned", "alearned10", "awooooo")};
 	private static Set <Customer> customers = new HashSet<Customer>(); //space for ten
 	
 	public CustomerRepositoryImpl() {
 		super();
 		this.customers.add(new Customer("Brandon", "Learned", "blearned92", "pw"));
-		this.customers.add(new Customer("Alexa", "Learned", "alearned10", "awooooo"));
-		this.customers.add(new Customer("Iroh", "Seaton", "irohTheKitteh1", "meooow"));
-	
+		this.customers.add(new Customer("Alexa", "Learned", "alearned10", "awooooo"));	
 	}
 	
 	private Set <Customer> HashSet() {

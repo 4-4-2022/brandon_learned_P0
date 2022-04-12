@@ -1,14 +1,13 @@
 package com.brandon;
 
-import java.util.Scanner; 
+import java.util.Scanner;
 
 import com.brandon.client.AppUIFunctions;
-import com.brandon.repositories.CustomerRepositoryImpl;
 import com.brandon.service.CustomerService;
 import com.brandon.users.Customer;
 
-public class CustomerLoggedInScreen {
-	
+public class SecondaryCustomerLoggedInScreen {
+
 	public static void main(Customer loggedInCustomer) {
 		AppUIFunctions.greetLoggedInCustomer(loggedInCustomer);	
 		Scanner input = new Scanner(System.in);
@@ -21,19 +20,10 @@ public class CustomerLoggedInScreen {
 			case 1: 
 				CustomerService.printCapBalance(loggedInCustomer);
 				break;
-			case 2: 
-				CustomerService.depositCaps(loggedInCustomer);
-				break;
-			case 3:
+			case 2:
 				CustomerService.withdrawCaps(loggedInCustomer);
 				break;
-			case 4:
-				AppUIFunctions.createSecondaryCustomer(loggedInCustomer);
-				break;
-			case 5:
-				CustomerService.donateCaps(loggedInCustomer);
-				break;
-			case 6:
+			case 3:
 				String userName = loggedInCustomer.firstName;
 				AppUIFunctions.logOutMessage(userName);
 				isRunning = false;
@@ -44,7 +34,5 @@ public class CustomerLoggedInScreen {
 			}
 		}
 	}
+	
 }
-
-
-

@@ -1,19 +1,34 @@
 package com.brandon.client;
 
-import java.util.InputMismatchException; 
+import java.util.InputMismatchException;  
 import java.util.Scanner;
 import java.util.Set;
 
+import com.brandon.AdminLoggedInScreen;
 import com.brandon.CustomerLoggedInScreen;
+import com.brandon.EmployeeLoggedInScreen;
+import com.brandon.SecondaryCustomerLoggedInScreen;
 import com.brandon.repositories.CustomerRepository;
 import com.brandon.repositories.CustomerRepositoryImpl;
+import com.brandon.repositories.EmployeeRepository;
+import com.brandon.repositories.EmployeeRepositoryImpl;
 import com.brandon.users.Customer;
+import com.brandon.users.Employee;
 
 public class AppUIFunctions {
 		
 	static CustomerRepository customerRepository = new CustomerRepositoryImpl();
-	static Set <Customer> customers = customerRepository.returnAllCustomers(); //These two lines of code allow case 3 to call it's for look
+	static EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
+
+//	static EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
+		
+		public Set<Customer> returnAllCustomers() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	
+	static Set <Customer> customers = customerRepository.returnAllCustomers(); //These two lines of code allow case 3 to call it's for look
+//	static Set <Employee> employees = employeeRepository.returnAllEmployees();
 	public static void startApplication() {
 		System.out.println("Welcome to Cap Keeper! Your friendly Wasteland safehaven for all bottlecap storage needs!\n"
 				+ "We apologize for the lack of a Graphical User Interface, technology is...lacking these days.\n");
@@ -35,10 +50,36 @@ public class AppUIFunctions {
 	public static void greetLoggedInCustomer(Customer loggedInCustomer) {
 		System.out.println("Hello " + loggedInCustomer.firstName + "!");
 	}
-	public static void customerLoggedInScreenOptions() {
-		System.out.println("\nPlease select from the following: ");
-		System.out.println("1: Check Cap Balance \n2: Deposit Caps \n3: Withdraw Caps \n4: Log Out \n ");
+	
+	public static void greetLoggedInEmployee(Employee loggedInEmployee) {
+		System.out.println("Hello " + loggedInEmployee.firstName + "!");
 	}
+	
+	public static void customerLoggedInScreenOptions(Customer loggedInCustomer) {
+		if (loggedInCustomer.isSecondaryAccount() == false) {
+			System.out.println("\nPlease select from the following: ");
+			System.out.println("1: Check Cap Balance \n2: Deposit Caps \n3: Withdraw Caps "
+					+ "\n4: Create Secondary Account \n5: Donate Caps to Secondary Account \n6: Log Out \n ");
+		} else {
+			System.out.println("\nPlease select from the following: ");
+			System.out.println("1: Check Cap Balance \n2: Withdraw Caps \n3: Log Out \n ");
+		}
+	}
+	
+	public static void employeeLoggedInScreenOptions(Employee loggedInEmployee) {
+		if (loggedInEmployee.isAdmin() == false) {
+			System.out.println("\nPlease select from the following: ");
+			System.out.println("1: View Customer Account Information \n2: View Customer Cap Balance "
+					+ "\n3: View Customer Personal Info "
+					+ "\n4: Log Out \n ");
+		} else {
+			System.out.println("\nPlease select from the following: ");
+			System.out.println("1: View Customer Account Information \n2: View Customer Cap Balance "
+					+ "\n3: View Customer Personal Info "
+					+ "\n4: Modify Account Cap Balance \n5: Cancel Existing Cap Keeper Account \n6: Log Out \n ");
+		}
+	}
+	
 	
 	public static void employeeScreenOptions() {
 		System.out.println("Employee Options - Please select from the following: ");
@@ -47,6 +88,10 @@ public class AppUIFunctions {
 	
 	public static void exitApplication() {
 		System.out.println("Watch out for Ghouls!");
+	}
+	
+	public static void logOutMessage(String nameInput) {
+		System.out.println("Goodbye " + nameInput + "! Don't get eaten!");
 	}
 	
 	public static void backspace() {
@@ -58,6 +103,12 @@ public class AppUIFunctions {
 			System.out.println(customer);
 		}
 	}
+	
+//	public static void viewEmployees() {
+//		for(Object employee : employees) {
+//			System.out.println(employee);
+//		}
+//	}
 	
 	public static void promptUserName () {
 		System.out.println("Enter Username: ");
@@ -134,11 +185,51 @@ public class AppUIFunctions {
 					
 						}	
 					}
-
 			}
 		}
 	}
 	
+	public static void createSecondaryCustomer(Customer loggedInCustomer) {
+		boolean isRunning = true;
+		while(isRunning) {
+			Scanner input = new Scanner(System.in);
+			boolean isValid = false;
+			while (isValid == false) {
+				String firstName = inputFirstName();
+				String lastName = inputLastName();		
+				String userName = inputUserName();			
+				String password = inputPassword();
+				if (customerRepository.findCustomerByUserName(userName) != null) {
+					System.out.println("That Username is already taken.");
+					} else {
+						isValid = true;
+						System.out.println("First Name: " + firstName + "\nLast Name: " + 
+								lastName + "\nUsername: " + userName + "\nPassword: " + 
+								password + "\nIs this information correct?\n 1: Yes   2: No \n");
+						
+						int response = input.nextInt();
+						switch(response) {
+						case 1: 
+							CustomerRepositoryImpl.addCustomer(firstName, lastName, userName, password);
+							loggedInCustomer.setSecondaryAccount(userName);
+							Customer retrievedCustomer = customerRepository.findCustomerByUserName(userName);
+							retrievedCustomer.setSecondaryAccount(true);
+							System.out.println("Secondary User " + userName + " Successfully Created! \n ");
+							isRunning = false;
+							break;
+						case 2: 
+							System.out.println("Account not created");
+							break;
+						default:
+							AppUIFunctions.invalidInput();
+					
+						}	
+					}
+			}
+		}
+	}
+	
+
 	
 	public static Customer customerLogin() {
 		Scanner input = new Scanner(System.in);
@@ -148,21 +239,49 @@ public class AppUIFunctions {
 		String passwordInput = input.next();
 		Customer retrievedCustomer = customerRepository.findCustomerByUserName(userNameInput);
 		if (retrievedCustomer == null) {
-			System.out.println("That username does not exist.");
+			System.out.println("That username does not exist. \n");
 		} else {
-			if (passwordInput.equals(retrievedCustomer.getPassword())) {
-				System.out.println("Successful login!");
+			if (passwordInput.equals(retrievedCustomer.getPassword()) && retrievedCustomer.isSecondaryAccount() == false) {
+				System.out.println("Successful login! \n");
 				CustomerLoggedInScreen.main(retrievedCustomer);
+			} else if (passwordInput.equals(retrievedCustomer.getPassword()) && retrievedCustomer.isSecondaryAccount() == true) {
+				System.out.println("Successful login! \n");
+				SecondaryCustomerLoggedInScreen.main(retrievedCustomer);
 			} else {
-				System.out.println("Password is incorrect.");
+				System.out.println("Password is incorrect. \n");
 			}
 			
 		} 
 		return retrievedCustomer;
 	}
 	
+	
+	public static Employee employeeLogin() {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter Username: ");
+		String userNameInput = input.next();
+		System.out.println("Enter Password: ");
+		String passwordInput = input.next();
+		Employee retrievedEmployee = employeeRepository.findEmployeeByUserName(userNameInput);
+		if (retrievedEmployee == null) {
+			System.out.println("That employee does not exist. \n");
+		} else {
+			if (passwordInput.equals(retrievedEmployee.getPassword()) && retrievedEmployee.isAdmin() == false) {
+				System.out.println("Successful login! \n");
+				EmployeeLoggedInScreen.main(retrievedEmployee);
+			} else if (passwordInput.equals(retrievedEmployee.getPassword()) && retrievedEmployee.isAdmin() == true) {
+				System.out.println("Successful login! \n");
+				AdminLoggedInScreen.main(retrievedEmployee);
+			} else {
+				System.out.println("Password is incorrect. \n");
+			}
+			
+		} 
+		return retrievedEmployee;
+	}
+	
 	public static void invalidInput() {
-		System.out.println("That is not a valid input, please try again.");
+		System.out.println("That is not a valid input, please try again. \n");
 	}
 	
 	public static int handleUserSelection(Scanner input) {
