@@ -8,13 +8,12 @@ public class CustomerScreen {
 
 	public static void main(String[] args) {
 		
+		Scanner input = new Scanner(System.in);
+
 		boolean isRunning = true;
 		while(isRunning) {
-			Scanner input = new Scanner(System.in);
 			AppUIFunctions.customerScreenOptions();
-			
-			int userSelection = input.nextInt();
-			input.nextLine(); // Leaver this here as there is a newline character that I you want to eat
+			int userSelection = AppUIFunctions.handleUserSelection(input);
 			
 			switch(userSelection) {
 			case 1: 
@@ -30,9 +29,6 @@ public class CustomerScreen {
 				break;
 			default:
 				AppUIFunctions.invalidInput();
-				
-			input.close();
-
 			}	
 		}
 	}

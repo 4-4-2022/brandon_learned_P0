@@ -14,24 +14,10 @@ public class Customer extends User {
 		this.userName = userName;
 		this.password = password;
 	}
-		
-	public static void main(String[] args) {
-
-		Customer[] customers = {
-				new Customer("Brandon", "Learned", "blearned92", "pw"), 
-				new Customer("Alexa", "Learned", "alearned10", "awooooo")};
-		
-		int i = 1;
-		for(Customer customer : customers) {
-			System.out.println("Customer " + i + ": \n" + customer);
-			i += 1;
-		}
-	}
 	
-	public void callCustomers() {
 		
-	}
 
+	
 	public double getBottleCaps() {
 		return bottleCaps;
 	}

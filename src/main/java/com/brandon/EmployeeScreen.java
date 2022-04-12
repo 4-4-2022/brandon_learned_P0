@@ -1,26 +1,19 @@
 package com.brandon;
 
-import java.util.Scanner;
-
+import java.util.Scanner; 
 import com.brandon.client.AppUIFunctions;
 
 public class EmployeeScreen {
 
 	public static void main(String[] args) {
 
+		Scanner input = new Scanner(System.in);
 	
 		boolean isRunning = true;
 		while(isRunning) {
-			AppUIFunctions.employeeScreenOptions();
-			
-			Scanner scanner = new Scanner(System.in);
-			
-			int userSelection = scanner.nextInt();
-			scanner.nextLine(); // Leaver this here as there is a newline character that I you want to eat
-			
-//			String userName = scanner.nextLine();
-//			System.out.println(userName);
-			
+			AppUIFunctions.employeeScreenOptions();			
+			int userSelection = AppUIFunctions.handleUserSelection(input);
+
 			switch(userSelection) {
 			case 1: 
 				System.out.println("Not implemented yet.");
@@ -38,8 +31,6 @@ public class EmployeeScreen {
 			default:
 				AppUIFunctions.invalidInput();
 			}
-			
-			
 		}
 	}
 	

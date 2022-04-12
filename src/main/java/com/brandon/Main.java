@@ -1,24 +1,19 @@
 package com.brandon;
 
-import java.util.Scanner;
+import java.util.Scanner; 
 
 import com.brandon.client.AppUIFunctions;
 
 public class Main {
 	public static void main (String[] args) {
 		
-		
+		Scanner input = new Scanner(System.in);
 		AppUIFunctions.startApplication();
-		
+
 		boolean isRunning = true;
 		while(isRunning) {
-			
 			AppUIFunctions.mainScreenOptions();
-			
-			Scanner input = new Scanner(System.in);
-			
-			int userSelection = input.nextInt();
-			input.nextLine();
+			int userSelection = AppUIFunctions.handleUserSelection(input);
 			
 			switch(userSelection) {
 			case 1: 
@@ -34,13 +29,9 @@ public class Main {
 				AppUIFunctions.exitApplication();
 				break;
 			default:
-				AppUIFunctions.invalidInput();
-				
-			input.close();
+				AppUIFunctions.invalidInput();		
 			}
-
 		}
-		
+		input.close();
 	}
-
 }

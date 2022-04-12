@@ -1,11 +1,10 @@
 package com.brandon.client;
 
+import java.util.InputMismatchException; 
 import java.util.Scanner;
 import java.util.Set;
 
 import com.brandon.CustomerLoggedInScreen;
-import com.brandon.CustomerScreen;
-import com.brandon.EmployeeScreen;
 import com.brandon.repositories.CustomerRepository;
 import com.brandon.repositories.CustomerRepositoryImpl;
 import com.brandon.users.Customer;
@@ -164,6 +163,28 @@ public class AppUIFunctions {
 	
 	public static void invalidInput() {
 		System.out.println("That is not a valid input, please try again.");
+	}
+	
+	public static int handleUserSelection(Scanner input) {
+		int userSelection = 0;
+		try {
+			userSelection = input.nextInt();
+		}catch(InputMismatchException e) {
+			
+		}
+		input.nextLine(); // Leaving this here as there is a newline character in the stream
+		return userSelection;
+	}
+	
+	public static int handleCurrencyAmmount(Scanner input) {
+		int userSelection = 0;
+		try {
+			userSelection = input.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("Not a valid Number.");
+		}
+		input.nextLine(); // Leaving this here as there is a newline character in the stream
+		return userSelection;
 	}
 	
 }
