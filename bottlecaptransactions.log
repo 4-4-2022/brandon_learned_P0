@@ -1,0 +1,5 @@
+20:44:30.006 [main] INFO  com.brandon.service.CustomerService - User blearned92 deposited 100 bottle caps.
+20:45:59.759 [main] INFO  com.brandon.service.CustomerService - User blearned92 deposited 1000 bottle caps.
+20:46:06.867 [main] INFO  com.brandon.service.CustomerService - User blearned92 withdrew 20 bottle caps.
+20:46:15.988 [main] INFO  com.brandon.service.CustomerService - User blearned92 donated 100 bottle caps to their Secondary User allypup.
+20:46:42.110 [main] INFO  com.brandon.service.CustomerService - User allypup withdrew 100 bottle caps.

@@ -2,13 +2,18 @@ package com.brandon.service;
 
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.brandon.client.AppUIFunctions;
 import com.brandon.repositories.CustomerRepository;
 import com.brandon.repositories.CustomerRepositoryImpl;
 import com.brandon.users.Customer;
 
 public class CustomerService {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+	
 	static CustomerRepository customerRepository = new CustomerRepositoryImpl(); //this could cause erros?
 
 	public static void printCapBalance(Customer loggedInCustomer) {
@@ -16,7 +21,6 @@ public class CustomerService {
 	}
 	
 //	String.format("%.0f", percentageValue);
-
 	
 	public static void depositCaps(Customer loggedInCustomer) {
 		Scanner input = new Scanner(System.in);
@@ -27,6 +31,8 @@ public class CustomerService {
 		} else {
 			loggedInCustomer.setBottleCaps(amountToDeposit + loggedInCustomer.getBottleCaps());
 			System.out.println("Deposited " + amountToDeposit + " bottle caps.");
+			logger.info("User " + loggedInCustomer.getUserName() + " deposited " + amountToDeposit + " bottle caps.");
+
 		}
 	}
 	
@@ -40,7 +46,8 @@ public class CustomerService {
 			System.out.println("Sorry, that is not a valid number.");
 		} else {
 			loggedInCustomer.setBottleCaps(loggedInCustomer.getBottleCaps() - amountToWithdraw);
-			System.out.println("Withdew " + amountToWithdraw + " bottle caps.");
+			System.out.println("Withdrew " + amountToWithdraw + " bottle caps.");
+			logger.info("User " + loggedInCustomer.getUserName() + " withdrew " + amountToWithdraw + " bottle caps.");
 		}
 	}
 	
@@ -54,11 +61,13 @@ public class CustomerService {
 			System.out.println("Sorry, that is not a valid number.");
 		} else if (amountToDonate > loggedInCustomer.getBottleCaps()){
 			System.out.println("You do not have enough caps to donate that.");
-
 		} else {
 			loggedInCustomer.setBottleCaps(loggedInCustomer.getBottleCaps() - amountToDonate);
 			retrievedCustomer.setBottleCaps(amountToDonate + retrievedCustomer.getBottleCaps());
 			System.out.println("Donated " + amountToDonate + " bottle caps to " + retrievedCustomer.firstName + ".");
+			logger.info("User " + loggedInCustomer.getUserName() + " donated " + amountToDonate
+					+ " bottle caps to their Secondary User " + retrievedCustomer.getUserName() + ".");
+
 		}
 	}
 }
