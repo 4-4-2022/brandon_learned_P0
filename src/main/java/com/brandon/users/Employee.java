@@ -1,6 +1,6 @@
 package com.brandon.users;
 
-public class Employee extends User{
+public class Employee extends User implements Comparable<Customer>{
 	
 	boolean isAdmin;
 
@@ -26,6 +26,12 @@ public Employee(String firstName, String lastName, String userName, String passw
 	public String toString() {
 		return "Admin: " + firstName + " " + lastName + "\nUsername: " + userName + "\nAdmin Status: "
 				+ isAdmin;
+	}
+
+	@Override
+	public int compareTo(Customer o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

@@ -1,6 +1,6 @@
 package com.brandon.client;
 
-import java.util.InputMismatchException;  
+import java.util.InputMismatchException;   
 import java.util.Scanner;
 import java.util.Set;
 
@@ -12,30 +12,32 @@ import com.brandon.repositories.CustomerRepository;
 import com.brandon.repositories.CustomerRepositoryImpl;
 import com.brandon.repositories.EmployeeRepository;
 import com.brandon.repositories.EmployeeRepositoryImpl;
+import com.brandon.service.CustomerService;
 import com.brandon.users.Customer;
 import com.brandon.users.Employee;
 
 public class AppUIFunctions {
 		
-	static CustomerRepository customerRepository = new CustomerRepositoryImpl();
-	static EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
 
-//	static EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
-		
-		public Set<Customer> returnAllCustomers() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+//keep these		
 	
-	static Set <Customer> customers = customerRepository.returnAllCustomers(); //These two lines of code allow case 3 to call it's for look
-//	static Set <Employee> employees = employeeRepository.returnAllEmployees();
+	public static void printItem(Object item) {
+		if(item instanceof Iterable) {
+			Iterable iterable = (Iterable) item;
+			for(Object o : iterable) {
+				System.out.println(o);
+			}
+		}else if(item instanceof Object[]) {
+			Object[] array = (Object[]) item;
+			for(Object o : array) {
+				System.out.println(o);
+			}
+		}else System.out.println(item);
+	}
+	
 	public static void startApplication() {
 		System.out.println("Welcome to Cap Keeper! Your friendly Wasteland safehaven for all bottlecap storage needs!\n"
 				+ "We apologize for the lack of a Graphical User Interface, technology is...lacking these days.\n");
-		
-//		
-//				+ ""
-//				+ "Please, select from the following options:\n \n1: Customer Login \n2: Employee Login \n3: Exit Application");
 	}
 	
 	public static void mainScreenOptions() {
@@ -98,18 +100,6 @@ public class AppUIFunctions {
 		System.out.println("Returning back one screen \n ");
 	}
 	
-	public static void viewCustomers() {
-		for(Object customer : customers) {
-			System.out.println(customer);
-		}
-	}
-	
-//	public static void viewEmployees() {
-//		for(Object employee : employees) {
-//			System.out.println(employee);
-//		}
-//	}
-	
 	public static void promptUserName () {
 		System.out.println("Enter Username: ");
 	}
@@ -151,6 +141,52 @@ public class AppUIFunctions {
 		String password = passwordInput.replaceAll(" ", "");
 		return password;
 	}
+	
+	public static void invalidInput() {
+		System.out.println("That is not a valid input, please try again. \n");
+	}
+	
+	public static int handleUserSelection(Scanner input) {
+		int userSelection = 0;
+		try {
+			userSelection = input.nextInt();
+		}catch(InputMismatchException e) {
+			
+		}
+		input.nextLine(); // Leaving this here as there is a newline character in the stream
+		return userSelection;
+	}
+	
+	public static int handleCurrencyAmmount(Scanner input) {
+		int userSelection = 0;
+		try {
+			userSelection = input.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("Not a valid Number.");
+		}
+		input.nextLine(); // Leaving this here as there is a newline character in the stream
+		return userSelection;
+	}
+	
+	//maybe keep
+
+	//	static Set <Employee> employees = employeeRepository.returnAllEmployees();
+
+	
+	public static void viewCustomers() {
+		CustomerService customerService = new CustomerService();
+		Set<Customer> customers = customerService.returnAllCustomers();
+		for(Object customer : customers) {
+			System.out.println(customer);
+		}
+	}
+	
+//	public static void viewEmployees() {
+//		for(Object employee : employees) {
+//			System.out.println(employee);
+//		}
+//	}
+	
 	
 	public static void createNewCustomer() {
 		boolean isRunning = true;
@@ -278,32 +314,6 @@ public class AppUIFunctions {
 			
 		} 
 		return retrievedEmployee;
-	}
-	
-	public static void invalidInput() {
-		System.out.println("That is not a valid input, please try again. \n");
-	}
-	
-	public static int handleUserSelection(Scanner input) {
-		int userSelection = 0;
-		try {
-			userSelection = input.nextInt();
-		}catch(InputMismatchException e) {
-			
-		}
-		input.nextLine(); // Leaving this here as there is a newline character in the stream
-		return userSelection;
-	}
-	
-	public static int handleCurrencyAmmount(Scanner input) {
-		int userSelection = 0;
-		try {
-			userSelection = input.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("Not a valid Number.");
-		}
-		input.nextLine(); // Leaving this here as there is a newline character in the stream
-		return userSelection;
 	}
 	
 }

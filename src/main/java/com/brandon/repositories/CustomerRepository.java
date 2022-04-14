@@ -10,6 +10,9 @@ public interface CustomerRepository { //This class just serves as a fake Databas
 	
 	public Set<Customer> returnAllCustomers();
 	public Customer findCustomerByUserName(String UserName);
+	public void createNewCustomer(Customer customer);
+	public void updateCustomerRecord(Customer customer);
+	public void deleteCustomer(Customer customer);
 
 		
 	

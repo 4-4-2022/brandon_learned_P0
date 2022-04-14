@@ -3,3 +3,8 @@
 20:46:06.867 [main] INFO  com.brandon.service.CustomerService - User blearned92 withdrew 20 bottle caps.
 20:46:15.988 [main] INFO  com.brandon.service.CustomerService - User blearned92 donated 100 bottle caps to their Secondary User allypup.
 20:46:42.110 [main] INFO  com.brandon.service.CustomerService - User allypup withdrew 100 bottle caps.
+18:31:43.725 [main] INFO  com.brandon.service.CustomerService - User blearned92 deposited 0 bottle caps.
+18:31:47.095 [main] INFO  com.brandon.service.CustomerService - User blearned92 deposited 20 bottle caps.
+18:31:51.871 [main] INFO  com.brandon.service.CustomerService - User blearned92 withdrew 10 bottle caps.
+18:32:15.126 [main] INFO  com.brandon.service.CustomerService - User blearned92 donated 5 bottle caps to their Secondary User allypup.
+18:32:35.241 [main] INFO  com.brandon.service.CustomerService - User allypup withdrew 3 bottle caps.
