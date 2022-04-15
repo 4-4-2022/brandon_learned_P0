@@ -3,6 +3,7 @@ package com.brandon;
 import java.util.Scanner;
 
 import com.brandon.client.AppUIFunctions;
+import com.brandon.service.CustomerService;
 import com.brandon.users.Employee;
 
 public class AdminLoggedInScreen {
@@ -12,38 +13,25 @@ public class AdminLoggedInScreen {
 		Scanner input = new Scanner(System.in);
 		boolean isRunning = true;
 		while(isRunning) {
+			CustomerService customerService = new CustomerService();
 			AppUIFunctions.employeeLoggedInScreenOptions(loggedInEmployee);
 			int userSelection = AppUIFunctions.handleUserSelection(input);
 			
 			switch(userSelection) {
 			case 1: 
-				AppUIFunctions.viewCustomers();
-				//CustomerService.printCapBalance(loggedInEmployee);
+				AppUIFunctions.printItem(customerService.returnAllCustomers());
 				break;
 			case 2: 
-				//view account balances
-				System.out.println("Not in service");
-				//CustomerService.depositCaps(loggedInEmployee);
+				AppUIFunctions.viewAccountDetails();
 				break;
 			case 3:
-				//view account personal information
-				System.out.println("Not in service");
-				//CustomerService.withdrawCaps(loggedInEmployee);
+				AppUIFunctions.cancelCapKeeperAccount();
 				break;
 			case 4:
-				//modify account cap balance
-				System.out.println("Not in service");
-
-				//AppUIFunctions.createSecondaryCustomer(loggedInEmployee);
+				AppUIFunctions.modifyAccountDetails();
 				break;
 			case 5:
-				//cancel and account
-				System.out.println("Not in service");
-
-				//CustomerService.donateCaps(loggedInEmployee);
-				break;
-			case 6:
-				String userName = loggedInEmployee.firstName;
+				String userName = loggedInEmployee.getFirstName();
 				AppUIFunctions.logOutMessage(userName);
 				isRunning = false;
 				AppUIFunctions.backspace();

@@ -1,9 +1,8 @@
 package com.brandon;
 
-import java.util.Scanner; 
+import java.util.Scanner;  
 
 import com.brandon.client.AppUIFunctions;
-import com.brandon.repositories.CustomerRepositoryImpl;
 import com.brandon.service.CustomerService;
 import com.brandon.users.Customer;
 

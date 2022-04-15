@@ -5,7 +5,9 @@ import java.util.Set;
 
 import com.brandon.client.AppUIFunctions;
 import com.brandon.service.CustomerService;
+import com.brandon.service.EmployeeService;
 import com.brandon.users.Customer;
+import com.brandon.users.Employee;
 
 public class Main {
 	public static void main (String[] args) {
@@ -21,18 +23,11 @@ public class Main {
 			
 			switch(userSelection) {
 			case 1: 
-				CustomerService customerService = new CustomerService();
-				Customer customer = new Customer("Barret", "Wallace", "machinegun", "marlene35");
-				System.out.println(customer);
-				customerService.createNewCustomer(customer);
-//				Set<Customer> customers = customerService.returnAllCustomers();
-//				CustomerScreen.main(args);
+				CustomerScreen.main(args);
 				break;
-				
 			case 2: 
-				EmployeeScreen.main(args);
+				AppUIFunctions.employeeLogin();
 				break;
-				
 			case 3:
 				isRunning = false;
 				AppUIFunctions.exitApplication();

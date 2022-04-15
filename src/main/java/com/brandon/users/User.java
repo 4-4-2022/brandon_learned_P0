@@ -1,8 +1,6 @@
 package com.brandon.users;
 
-import java.io.Serializable;
-
-public abstract class User implements Serializable{
+public abstract class User {
 	
 	//instance field. Has-a relationships
 	public String firstName;
@@ -21,14 +19,26 @@ public abstract class User implements Serializable{
 		this.userName = userName;
 		this.password = password;
 	}
-	
-	
-
-
 	//Add User methods here
 	
 	public String getUserName() {
 		return userName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public void setUserName(String userName) {

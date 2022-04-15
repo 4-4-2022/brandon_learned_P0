@@ -1,6 +1,6 @@
 package com.brandon.users;
 
-public class Customer extends User implements Comparable<Customer>{
+public class Customer extends User{
 
 	public double bottleCaps = 0;
 	public String secondaryAccount = null;
@@ -66,19 +66,14 @@ public class Customer extends User implements Comparable<Customer>{
 
 	@Override
 	public String toString() {
-		return "Name: " + firstName + " " + lastName + "\nUsername: " + userName + "\nPassword: "
-				+ password + "\nBottle Caps: " + bottleCaps + "\nSecondary Account: " + secondaryAccount
-				+ "\nSecondary Account Status: " + isSecondaryAccount + "\n " ;
+		return "Name: " + firstName + " " + lastName + "\nUsername: " + userName + "\n ";
+
 	}
-
-	@Override
-	public int compareTo(Customer o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
+	
+	
+//	return "Name: " + firstName + " " + lastName + "\nUsername: " + userName + "\nPassword: "
+//	+ password + "\nBottle Caps: " + bottleCaps + "\nSecondary Account: " + secondaryAccount
+//	+ "\nSecondary Account Status: " + isSecondaryAccount + "\n " ;
 	
 	
 }

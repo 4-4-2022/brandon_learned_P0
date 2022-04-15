@@ -20,7 +20,7 @@ public class CustomerScreen {
 				AppUIFunctions.customerLogin();
 				break;
 			case 2: 
-				AppUIFunctions.createNewCustomer();
+				AppUIFunctions.customerSignUp();
 				break;
 			case 3:
 				isRunning = false;
