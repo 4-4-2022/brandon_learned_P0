@@ -32,7 +32,6 @@ public class CustomerService {
 	}
 	
 	public void createNewCustomer(Customer customer) {
-		System.out.println("\nCustomers: \n");
 		this.customerRepository.createNewCustomer(customer);
 	}
 	

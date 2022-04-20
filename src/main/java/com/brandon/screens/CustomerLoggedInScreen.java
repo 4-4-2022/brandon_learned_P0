@@ -1,4 +1,4 @@
-package com.brandon;
+package com.brandon.screens;
 
 import java.util.Scanner;  
 
@@ -21,6 +21,7 @@ public class CustomerLoggedInScreen {
 				CustomerService.printCapBalance(loggedInCustomer);
 				break;
 			case 2: 
+				//double capsToDeposit = input.nextDouble();
 				CustomerService.depositCaps(loggedInCustomer);
 				break;
 			case 3:

@@ -1,4 +1,4 @@
-package com.brandon;
+package com.brandon.screens;
 
 import java.util.Scanner; 
 

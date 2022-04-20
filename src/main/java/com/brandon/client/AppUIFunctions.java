@@ -6,15 +6,15 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.brandon.AdminLoggedInScreen;
-import com.brandon.CustomerLoggedInScreen;
-import com.brandon.CustomerScreen;
-import com.brandon.EmployeeLoggedInScreen;
-import com.brandon.SecondaryCustomerLoggedInScreen;
 import com.brandon.repositories.CustomerRepository;
 import com.brandon.repositories.CustomerRepositoryImpl;
 import com.brandon.repositories.EmployeeRepository;
 import com.brandon.repositories.EmployeeRepositoryImpl;
+import com.brandon.screens.AdminLoggedInScreen;
+import com.brandon.screens.CustomerLoggedInScreen;
+import com.brandon.screens.CustomerScreen;
+import com.brandon.screens.EmployeeLoggedInScreen;
+import com.brandon.screens.SecondaryCustomerLoggedInScreen;
 import com.brandon.service.CustomerService;
 import com.brandon.service.EmployeeService;
 import com.brandon.users.Customer;
@@ -93,7 +93,7 @@ public class AppUIFunctions {
 				+ "\n4: Change Password"
 				+ "\n5: Change Bottlecap Balance"
 				+ "\n6: Remove Secondary Account"
-				+ "\n7: Exit Application");
+				+ "\n7: Previous Screen");
 	}
 	
 	public static void exitApplication() {
@@ -116,93 +116,80 @@ public class AppUIFunctions {
 		System.out.println("Enter Password: ");
 	}
 	
-	public static String inputFirstName() {
-		boolean isValid = true;
-		Scanner input = new Scanner(System.in);
-		String firstName = null;
-		while (isValid) {
+	public static String inputFirstName(String firstNameInput) {
 			Pattern p = Pattern.compile("[^a-z]", Pattern.CASE_INSENSITIVE);
-			System.out.println("Please input your first name: ");
-			String firstNameInput = input.nextLine();
 			Matcher m = p.matcher(firstNameInput);
 			boolean b = m.find();
 			if(b == true) {
-				System.out.println("Special characters and numbers are not allowed in your first name.");
+				System.out.println("Special characters and numbers are not allowed in First Names.");
+				return null;
 			} else if(firstNameInput.length() > 20) {
 				System.out.println("Name Length Cannot Exceed 20 Characters.");
+				return null;
 			} else if(firstNameInput.length() < 1) {
-				System.out.println("You must input a first name \n");
+				System.out.println("You must input a First Name \n");
+				return null;
 			} else {
-				firstName = firstNameInput.substring(0, 1).toUpperCase() + firstNameInput.substring(1);
-				isValid = false;
+				String firstName = firstNameInput.substring(0, 1).toUpperCase() + firstNameInput.substring(1).toLowerCase();
+				return firstName;
 			}
 		}
-		return firstName;
-	}
 	
-	public static String inputLastName() {
-		boolean isValid = true;
-		Scanner input = new Scanner(System.in);
-		String lastName = null;
-		while (isValid) {
-			Pattern p = Pattern.compile("[^a-z]", Pattern.CASE_INSENSITIVE);
-			System.out.println("Please input your last name: ");
-			String lastNameInput = input.nextLine();
-			Matcher m = p.matcher(lastNameInput);
-			boolean b = m.find();
-			if(b == true) {
-				System.out.println("Special characters and numbers are not allowed in your last name.");
-			} else if(lastNameInput.length() > 20) {
-				System.out.println("Name Length Cannot Exceed 20 Characters.");
-			} else if(lastNameInput.length() < 1) {
-				System.out.println("You must input a last name\n");
-			} else {
-				lastName = lastNameInput.substring(0, 1).toUpperCase() + lastNameInput.substring(1);
-				isValid = false;
-			}
+	
+	public static String inputLastName(String lastNameInput) {
+		Pattern p = Pattern.compile("[^a-z]", Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(lastNameInput);
+		boolean b = m.find();
+		if(b == true) {
+			System.out.println("Special characters and numbers are not allowed in First Names.");
+			return null;
+		} else if(lastNameInput.length() > 20) {
+			System.out.println("Name Length Cannot Exceed 20 Characters.");
+			return null;
+		} else if(lastNameInput.length() < 1) {
+			System.out.println("You must input a First Name \n");
+			return null;
+		} else {
+			String firstName = lastNameInput.substring(0, 1).toUpperCase() + lastNameInput.substring(1).toLowerCase();
+			return firstName;
 		}
-		return lastName;
 	}
 	
-	public static String inputUserName() {
-		boolean isValid = true;
-		Scanner input = new Scanner(System.in);
-		String userName = null;
-		while (isValid) {
-			Pattern p = Pattern.compile("[^a-zA-Z0-9]", Pattern.CASE_INSENSITIVE);
-			System.out.println("Please input a username: ");
-			String userNameInput = input.nextLine();
-			Matcher m = p.matcher(userNameInput);
-			boolean b = m.find();
-			if(b == true) {
-				System.out.println("Special characters are not allowed in your username.");
-			} else if(userNameInput.length() > 16 || userNameInput.length() < 8) {
-				System.out.println("Username Length must be 8-16 characters long.");
-			} else {
-				userName = userNameInput.toLowerCase();
-				isValid = false;
-			}
+	public static String inputUserName(String userNameInput) {
+		Pattern p = Pattern.compile("[^a-zA-Z0-9]", Pattern.CASE_INSENSITIVE);
+		Matcher m = p.matcher(userNameInput);
+		boolean b = m.find();
+		if(b == true) {
+			System.out.println("Special characters are not allowed in Usernames.");
+			return null;
+		} else if(userNameInput.length() > 16 || userNameInput.length() < 8) {
+			System.out.println("Username Length must be 8-16 characters long.");
+			return null;
+		} else {
+			String userName = userNameInput.toLowerCase();
+			return userName;
 		}
-		return userName;
 	}
+
 	
-	public static String inputPassword() {
-		boolean isValid = true;
-		Scanner input = new Scanner(System.in);		
-		String password = null;
-		while (isValid) {
-			System.out.println("Please input a password: ");
-			String passwordInput = input.nextLine();
+	public static String inputPassword(String passwordInput) {
+        for (int i = 0; i < passwordInput.length(); i++) {
+        	 
+            // Checking the character for not being a
+            // letter,digit or space
+            if (Character.isWhitespace(passwordInput.charAt(i))) {
+            	System.out.println("Spaces are not allowed in passwords");
+            	return null;
+            }
+        }
 			if(passwordInput.length() > 20 || passwordInput.length() < 8) {
 				System.out.println("Password Length must be 8-20 characters long.");
+				return null;
 			} else {
-				password = passwordInput;
-				isValid = false;
+				return passwordInput;
 			}
 		}
-		return password;
-	}
-	
+
 	public static void invalidInput() {
 		System.out.println("That is not a valid input, please try again. \n");
 	}
@@ -236,24 +223,46 @@ public class AppUIFunctions {
 			Scanner input = new Scanner(System.in);
 			boolean isValid = false;
 			while (isValid == false) {
-				String firstName = inputFirstName();
-				String lastName = inputLastName();		
-				String userName = inputUserName();			
-				String password = inputPassword();
-				if (customerService.findCustomerByUserName(userName) != null) {
+				String firstNameOutput = null;
+				while (firstNameOutput == null) {
+					System.out.println("Please enter a First Name:");
+					String firstNameInput = input.nextLine();
+					firstNameOutput = inputFirstName(firstNameInput);
+				}
+				String lastNameOutput = null;
+				while (lastNameOutput == null) {
+					System.out.println("Please enter a Last Name:");
+					String lastNameInput = input.nextLine();
+					lastNameOutput = inputLastName(lastNameInput);
+				}
+				String userNameOutput = null;
+				while (userNameOutput == null) {
+					System.out.println("Please enter a Username:");
+					String userNameInput = input.nextLine();
+					userNameOutput = inputUserName(userNameInput);
+				}
+				
+				String passwordOutput = null;
+				while (passwordOutput == null) {
+					System.out.println("Please enter a Password:");
+					String passwordInput = input.nextLine();
+					passwordOutput = inputPassword(passwordInput);
+				}
+			
+				if (customerService.findCustomerByUserName(userNameOutput) != null) {
 					System.out.println("That Username is already taken.");
 					} else {
 						isValid = true;
-						System.out.println("First Name: " + firstName + "\nLast Name: " + 
-								lastName + "\nUsername: " + userName + "\nPassword: " + 
-								password + "\nIs this information correct?\n 1: Yes   2: No \n");
+						System.out.println("First Name: " + firstNameOutput + "\nLast Name: " + 
+								lastNameOutput + "\nUsername: " + userNameOutput + "\nPassword: " + 
+								passwordOutput + "\nIs this information correct?\n 1: Yes   2: No \n");
 						
 						int response = input.nextInt();
 						switch(response) {
 						case 1: 
-							Customer createdCustomer = new Customer(firstName, lastName, userName, password);
+							Customer createdCustomer = new Customer(firstNameOutput, lastNameOutput, userNameOutput, passwordOutput);
 							customerService.createNewCustomer(createdCustomer);
-							System.out.println("User " + userName + " Successfully Created! \n ");
+							System.out.println("User " + userNameOutput + " Successfully Created! \n ");
 							isRunning = false;
 							break;
 						case 2: 
@@ -271,32 +280,56 @@ public class AppUIFunctions {
 	public static void createSecondaryCustomer(Customer loggedInCustomer) {
 		CustomerService customerService = new CustomerService();
 		if(loggedInCustomer.secondaryAccount != null) {
-			System.out.println("You already someone moochin' off of you. No more!");
+			System.out.println("You already have a secondary user associated with you account!");
 		} else {
 			boolean isRunning = true;
 			while(isRunning) {
 				Scanner input = new Scanner(System.in);
 				boolean isValid = false;
 				while (isValid == false) {
-					String firstName = inputFirstName();
-					String lastName = inputLastName();		
-					String userName = inputUserName();			
-					String password = inputPassword();
-					if (customerService.findCustomerByUserName(userName) != null) {
+					String firstNameOutput = null;
+					while (firstNameOutput == null) {
+						System.out.println("Enter your First Name:");
+						String firstNameInput = input.nextLine();
+						firstNameOutput = inputFirstName(firstNameInput);
+					}
+					
+					String lastNameOutput = null;
+					while (lastNameOutput == null) {
+						System.out.println("Enter your Last Name:");
+						String lastNameInput = input.nextLine();
+						lastNameOutput = inputLastName(lastNameInput);
+					}
+					
+					String userNameOutput = null;
+					while (userNameOutput == null) {
+						System.out.println("Please enter a Username:");
+						String userNameInput = input.nextLine();
+						userNameOutput = inputUserName(userNameInput);
+					}
+					
+					String passwordOutput = null;
+					while (passwordOutput == null) {
+						System.out.println("Please enter a Password:");
+						String passwordInput = input.nextLine();
+						passwordOutput = inputPassword(passwordInput);
+					}
+
+					if (customerService.findCustomerByUserName(userNameOutput) != null) {
 						System.out.println("That Username is already taken.");
 						} else {
 							isValid = true;
-							System.out.println("First Name: " + firstName + "\nLast Name: " + 
-									lastName + "\nUsername: " + userName + "\nPassword: " + 
-									password + "\nIs this information correct?\n 1: Yes   2: No \n");
+							System.out.println("First Name: " + firstNameOutput + "\nLast Name: " + 
+									lastNameOutput + "\nUsername: " + userNameOutput + "\nPassword: " + 
+									passwordOutput + "\nIs this information correct?\n 1: Yes   2: No \n");
 							
 							int response = input.nextInt();
 							switch(response) {
 							case 1: 
-								Customer createdSecondaryCustomer = new Customer(firstName, lastName, userName, password);
+								Customer createdSecondaryCustomer = new Customer(firstNameOutput, lastNameOutput, userNameOutput, passwordOutput);
 								customerService.createNewCustomer(createdSecondaryCustomer);
 								customerService.createSecondaryCustomer(loggedInCustomer, createdSecondaryCustomer);
-								System.out.println("Secondary User " + userName + " Successfully Created! \n ");
+								System.out.println("Secondary User " + userNameOutput + " Successfully Created! \n ");
 								isRunning = false;
 								break;
 							case 2: 
@@ -368,15 +401,14 @@ public class AppUIFunctions {
 	public static void viewAccountDetails() {
 		Scanner input = new Scanner(System.in);
 		CustomerService customerService = new CustomerService();
-		System.out.println("\nWho's account you snoopin on?");
-		System.out.println("You can type in their Username below if ya feel like forgettin' yer morals:");
+		System.out.println("\nPlease enter the Username associated with the account you would like to view:");
 		String desiredAccount = input.nextLine();
 		Customer retrievedAccount = customerService.findCustomerByUserName(desiredAccount);
 		
 		if (retrievedAccount == null) {
-			System.out.println("\nThat username you put in don't match anything I got here, pal.");
+			System.out.println("\nUsername does not exist.");
 		} else {
-			System.out.println("\nThere ya go, ya lowlife. Hope you're able to sleep at night.");
+			System.out.println("\nUser found:");
 			System.out.println("\nName: " + retrievedAccount.getFirstName() + " " + retrievedAccount.getLastName() + "\nUsername: " 
 					+ retrievedAccount.getUserName() + "\nPassword: " + retrievedAccount.getPassword() + "\nBottle Caps: " 
 					+ retrievedAccount.getBottleCaps() + "\nSecondary Account: " + retrievedAccount.secondaryAccount 
@@ -387,24 +419,23 @@ public class AppUIFunctions {
 	public static void cancelCapKeeperAccount() {
 		Scanner input = new Scanner(System.in);
 		CustomerService customerService = new CustomerService();
-		System.out.println("\nOooooooo! Someone's gettin' deleted!");
-		System.out.println("Type in their Username below wish they never set eyes on ya!:");
+		System.out.println("Please enter the Username associated with the account you would like to delete:");
 		String desiredAccount = input.nextLine();
 		Customer retrievedAccount = customerService.findCustomerByUserName(desiredAccount);
 		
 		if (retrievedAccount == null) {
-			System.out.println("\nUhh...can't delete what don't exist buddy...");
+			System.out.println("\nUsername does not exist.");
 		} else {
 			if(retrievedAccount.secondaryAccount == null) {
 				customerService.deleteCustomer(retrievedAccount);
-				System.out.println("Job's done! Wait'll ya see the look on " + retrievedAccount.getFirstName() 
-				+ "'s face when they find out!");
+				System.out.println("Cap Keeper User: " + retrievedAccount.getUserName() 
+				+ " successfully deleted.");
 			} else {
 				Customer secondaryCustomer = customerService.findCustomerByUserName(retrievedAccount.secondaryAccount);
 				customerService.deleteCustomer(secondaryCustomer);
 				customerService.deleteCustomer(retrievedAccount);
-				System.out.println("That'll show em! " + retrievedAccount.getFirstName() + " and "
-						+ secondaryCustomer.getFirstName() + " won't be showin' their faces round here no more!");
+				System.out.println("Cap Keeper Accounts: " + retrievedAccount.getUserName() + " and "
+						+ secondaryCustomer.getUserName() + "  successfully deleted.");
 			}
 		}
 	}
@@ -412,77 +443,85 @@ public class AppUIFunctions {
 	public static void modifyAccountDetails() {
 		Scanner input = new Scanner(System.in);
 		CustomerService customerService = new CustomerService();
-		System.out.println("\nWho's Cap Keeper account we jackin' up this time?");
-		System.out.println("Tell me the Username and we'll make quick work of 'em!");
+		System.out.println("Please enter the Username associated with the account you would like to modify:");
 		String desiredAccount = input.nextLine();
 		Customer retrievedAccount = customerService.findCustomerByUserName(desiredAccount);
 		if (retrievedAccount == null) {
-			System.out.println("\nCan't you type anything right? Learn to spell, or no Cap Keeper info for you!");
+			System.out.println("\nUsername does not exist.");
 		} else {
+			System.out.println("\nUser found:");
 			System.out.println("\nName: " + retrievedAccount.getFirstName() + " " + retrievedAccount.getLastName() + "\nUsername: " 
 				+ retrievedAccount.getUserName() + "\nPassword: " + retrievedAccount.getPassword() + "\nBottle Caps: " 
 				+ retrievedAccount.getBottleCaps() + "\nSecondary Account: " + retrievedAccount.secondaryAccount 
-				+ "\nSecondary Account Status: " + retrievedAccount.isSecondaryAccount + "\n ");
-			System.out.println("There ya go! The power of the account in the palm of your hand.");
-			
+				+ "\nSecondary Account Status: " + retrievedAccount.isSecondaryAccount + "\n ");			
 			boolean isValid = true;
 			while(isValid) {
-				System.out.println("What now, Boss? \n");
+				System.out.println("What would you like to modify about account " + retrievedAccount.getUserName() + "? \n");
 				customerModificationOptions();
 				int userSelection = AppUIFunctions.handleUserSelection(input);
 				switch(userSelection) {
 				case 1: 
-					System.out.println("What new first name are we thinkin'?");
-					String newFirstName = inputFirstName();
-					customerService.changeAccountDetails(retrievedAccount, "first_name", newFirstName);
-					System.out.println("Account: " + retrievedAccount.getUserName() + "'s first name is now " + newFirstName + "..."
-							+ "Kind of dumb name, don'tcha think?");
+					String firstNameOutput = null;
+					while (firstNameOutput == null) {
+						System.out.println("Enter your First Name:");
+						String firstNameInput = input.nextLine();
+						firstNameOutput = inputFirstName(firstNameInput);
+					}
+					customerService.changeAccountDetails(retrievedAccount, "first_name", firstNameOutput);
+					System.out.println("Account: " + retrievedAccount.getUserName() + "'s first name changed to " + firstNameOutput + ".");
 					isValid = false;
 					break;
 				case 2: 
-					System.out.println("What new last name are we thinkin'?");
-					String newLastName = inputLastName();
-					customerService.changeAccountDetails(retrievedAccount, "last_name", newLastName);
-					System.out.println("Account: " + retrievedAccount.getUserName() + "'s last name is now " + newLastName + "..."
-							+ newLastName + "...Seriously?");
+					String lastNameOutput = null;
+					while (lastNameOutput == null) {
+						System.out.println("Enter your First Name:");
+						String lastNameInput = input.nextLine();
+						lastNameOutput = inputFirstName(lastNameInput);
+					}					customerService.changeAccountDetails(retrievedAccount, "last_name", lastNameOutput);
+					System.out.println("Account: " + retrievedAccount.getUserName() + "'s last name changed to " + lastNameOutput + ".");
 					isValid = false;
 					break;
 				case 3: 
-					System.out.println("What new Username are we thinkin'?");
-					String newUsername = inputUserName();
-					customerService.changeAccountDetails(retrievedAccount, "user_name", newUsername);
-					System.out.println("Account: " + retrievedAccount.getUserName() + "'s Username is now " + newUsername + "."
-							+ " Customer service'll be hearin' about this one!");
+					String userNameOutput = null;
+					while (userNameOutput == null) {
+						System.out.println("Please enter a Username:");
+						String userNameInput = input.nextLine();
+						userNameOutput = inputUserName(userNameInput);
+					}
+					customerService.changeAccountDetails(retrievedAccount, "user_name", userNameOutput);
+					System.out.println("Account: " + retrievedAccount.getUserName() + "'s Username changed to " + userNameOutput + ".");
 					isValid = false;
 					break;
 				case 4: 
-					System.out.println("What new password are we thinkin'?");
-					String newPassword = inputPassword();
-					customerService.changeAccountDetails(retrievedAccount, "user_password", newPassword);
-					System.out.println("Account: " + retrievedAccount.getUserName() + "'s password is now " + newPassword + "."
-							+ " Too bad we ain't got no 'Forgot Password' functionality!");
+					String passwordOutput = null;
+					while (passwordOutput == null) {
+						System.out.println("Please enter a Password:");
+						String passwordInput = input.nextLine();
+						passwordOutput = inputPassword(passwordInput);
+					}
+					customerService.changeAccountDetails(retrievedAccount, "user_password", passwordOutput);
+					System.out.println("Account: " + retrievedAccount.getUserName() + "'s password changed to " + passwordOutput + ".");
 					isValid = false;
 					break;
 				case 5: 
-					System.out.println("How many bottle caps are we assignin' to their name?");
+					System.out.println("Please enter a new bottlecap balance: ");
 					int newAmount = AppUIFunctions.handleCurrencyAmmount(input);
 					customerService.adminUpdateBottleCaps(retrievedAccount, newAmount);
-					System.out.println("Account: " + retrievedAccount.getUserName() + "'s bottle cap balance is now " + newAmount + "."
-							+ " I hope they're happy with that!");
+					System.out.println("Account: " + retrievedAccount.getUserName() + "'s new bottle cap balance is: " + newAmount + ".");
 					break;
 				case 6: 
 					if (retrievedAccount.secondaryAccount == null) {
-						System.out.println("\nUhh...can't delete what don't exist buddy...");
+						System.out.println("\nThere is no secondary account associated with user " + retrievedAccount.getUserName() + ".");
 					} else {
 						Customer secondaryCustomer = customerService.findCustomerByUserName(retrievedAccount.secondaryAccount);
 						customerService.removeSecondaryCustomer(retrievedAccount);
-						System.out.println("Looks like " + secondaryCustomer.getUserName() + " won't be moochin' off'a "
-									+ retrievedAccount.getUserName() + " any more!");
+						System.out.println("Secondary User Account " + secondaryCustomer.getUserName() + " has been removed from Primary "
+								+ "account " + retrievedAccount.getUserName() + ".");
 					}
 					break;
 				case 7:
 					isValid = false;
-					AppUIFunctions.exitApplication();
+					AppUIFunctions.backspace();
 					break;
 				default:
 					AppUIFunctions.invalidInput();		

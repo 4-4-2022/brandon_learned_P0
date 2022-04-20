@@ -2,17 +2,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.revature</groupId>
+	<groupId>com.brandon</groupId>
 	<artifactId>Project0</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<properties>
+	
+		<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
-	<!-- Our dependencies represent the external Java libraries that Maven will 
-		download onto our machine for us. It will store these dependencies in a hidden 
-		directory in your user home directory (~) called ".m2". -->
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
 		<dependency>
@@ -34,8 +32,7 @@
 			<version>5.8.2</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- We are using Postgres, so our JDBC implementation should be
-		Postgres'. -->
+		<!-- We are using Postgres, so our JDBC implementation should be Postgres'. -->
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -44,11 +41,39 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-inline -->
 		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-inline</artifactId>
-		    <version>4.4.0</version>
-		    <scope>test</scope>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-inline</artifactId>
+			<version>4.4.0</version>
+			<scope>test</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>uk.org.webcompere</groupId>
+			<artifactId>system-stubs-core</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>uk.org.webcompere</groupId>
+			<artifactId>system-stubs-jupiter</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>4.4.0</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.3.19</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>5.3.19</version>
+		</dependency>
 	</dependencies>
 </project>
